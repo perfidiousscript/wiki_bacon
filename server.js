@@ -8,6 +8,10 @@ var request = require('request');
 
 var app = express();
 
+if (process.argv.length <= 2) {
+    console.log("ERROR: NO URL PASSED IN");
+    process.exit(-1);
+}
 
 var url = process.argv[2];
 
