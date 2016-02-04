@@ -1,0 +1,19 @@
+{
+  "name": "bacon_number",
+  "version": "1.0.0",
+  "description": "Node script which takes in a wikipedia url and finds that page's bacon number",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node ./server.js"
+  },
+  "author": "Sam Moss",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "cheerio": "^0.20.0",
+    "express": "^4.13.4",
+    "mocha": "^2.4.5",
+    "request": "^2.69.0"
+  }
+}
