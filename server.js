@@ -5,9 +5,15 @@ var express = require('express');
 var fs = require('fs');
 var request = require('request');
 var app = express();
-var pageNameProcessor = require('./page_processor.js')
+var pageNameProcessor = require('./page_processer.js')
+var adjacencyList = require('./adjacency_list.js');
 
-console.log("Here is argv: ", process.argv[2]);
+//Takes in the second parameter as the name of the page to search for.
+var rawPageName = process.argv[2]
+
+//Converts the raw page name into one that can be used on the wiki API.
+//i.e. kevin bacon => Kevin%20Bacon.
+var processedPageName = pageNameProcessor(rawPageName);
 
 var url = 'http://en.wikipedia.org/w/api.php?action=query&prop=links&format=json&iwurl=&titles=Kevin%20Bacon';
 
