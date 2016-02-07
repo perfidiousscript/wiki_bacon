@@ -3,39 +3,15 @@
  */
 var express = require('express');
 var fs = require('fs');
-var cheerio = require('cheerio');
 var request = require('request');
-
 var app = express();
+var pageNameProcessor = require('./page_processor.js')
 
-if (process.argv.length <= 2) {
-    console.log("ERROR: NO URL PASSED IN");
-    process.exit(-1);
-}
+console.log("Here is argv: ", process.argv[2]);
 
-var url = process.argv[2];
+var url = 'http://en.wikipedia.org/w/api.php?action=query&prop=links&format=json&iwurl=&titles=Kevin%20Bacon';
 
-request(url, function(error, response, html){
-    if(!error){
-        var $ = cheerio.load(html);
-
-        var title, release, rating;
-        var json = { title : "", release : "", rating : ""};
-        $('#firstHeading').filter(function(){
-            var data =$(this);
-
-            title = data.text();
-            json.title = title;
-            console.log(json);
-        })
-    } else {
-        console.log(error);
-    }
+request(url, function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    console.log(body)};
 });
-
-
-app.listen('8081');
-
-console.log('Listening on port 8081');
-
-exports = module.exports = app;

@@ -1,10 +1,10 @@
 {
   "name": "bacon_number",
   "version": "1.0.0",
-  "description": "Node script which takes in a wikipedia url and finds that page's bacon number",
+  "description": "Node script which takes in a wikipedia url and finds the bacon number for that page",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "./node_modules/.bin/mocha",
     "start": "node ./server.js"
   },
   "author": "Sam Moss",
