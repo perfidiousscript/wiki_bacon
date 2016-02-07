@@ -15,7 +15,9 @@ var rawPageName = process.argv[2]
 //i.e. kevin bacon => Kevin%20Bacon.
 var processedPageName = pageNameProcessor(rawPageName);
 
-var url = 'http://en.wikipedia.org/w/api.php?action=query&prop=links&format=json&iwurl=&titles=Kevin%20Bacon';
+var url = 'http://en.wikipedia.org/w/api.php?' +
+'action=query&prop=links&format=json&iwurl=&titles=' +
+processedPageName;
 
 request(url, function (error, response, body) {
   if (!error && response.statusCode == 200) {
