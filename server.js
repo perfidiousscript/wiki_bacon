@@ -19,7 +19,9 @@ var url = 'http://en.wikipedia.org/w/api.php?' +
 'action=query&prop=links&format=json&iwurl=&titles=' +
 processedPageName;
 
+console.log("here is processedPageName", processedPageName);
 request(url, function (error, response, body) {
   if (!error && response.statusCode == 200) {
-    console.log(body)};
+    //console.log(body)
+  };
 });
