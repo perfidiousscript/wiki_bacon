@@ -1,14 +1,21 @@
 var chai = require("chai");
 var assert = chai.assert;
-var pageProcessor = require("../page_processer.js");
+var pageProcessor = require("../string_processer.js");
 
-describe("Page Processor", function(){
+describe("Input Processor", function(){
   it("should work with a single word", function(){
-    assert.equal(pageProcessor('kevin'),'Kevin');
-    assert.equal(pageProcessor('Kevin'),'Kevin');
+    assert.equal(pageProcessor.inputCleanse('kevin'),'Kevin');
+    assert.equal(pageProcessor.inputCleanse('Kevin'),'Kevin');
   })
   it("should work with two words", function(){
-    assert.equal(pageProcessor('kevin bacon'),'Kevin Bacon');
-    assert.equal(pageProcessor('Kevin Bacon'),'Kevin Bacon')
+    assert.equal(pageProcessor.inputCleanse('kevin bacon'),'Kevin Bacon');
+    assert.equal(pageProcessor.inputCleanse('Kevin Bacon'),'Kevin Bacon');
+  })
+});
+
+describe("continue formatter", function(){
+  it("should turn all pipes into the encoded characters", function(){
+    assert.equal(pageProcessor.continueFormatter('|'),'%7C');
+    assert.equal(pageProcessor.continueFormatter('736|0|Action-angle_variables'),'736%7C0%7CAction-angle_variables');
   })
 });
