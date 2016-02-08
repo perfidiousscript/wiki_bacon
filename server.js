@@ -6,12 +6,12 @@ var express = require('express');
 var fs = require('fs');
 var request = require('request');
 var app = express();
-var pageNameProcessor = require('./string_processer.js')
+var pageNameProcessor = require('./string_processor.js')
 var continueHandler = require('./continue_handler.js');
 var apiCall = require('./api_call.js');
 
 //Takes in the second parameter as the name of the page to search for.
-var rawPageName = process.argv[2]
+var rawPageName = process.argv[2];
 
 //Converts the raw page name into one that can be used on the wiki API.
 //i.e. kevin bacon => Kevin%20Bacon.

@@ -1,6 +1,7 @@
 'use strict'
 var request = require('request');
 var adjacencyList = require('./adjacency_list.js');
+var pageProcessor = require('./string_processor.js');
 var module = module.exports = {};
 
 var basicUrl = 'http://en.wikipedia.org/w/api.php?';
@@ -17,10 +18,10 @@ module.initialApi = function(pageName){
       adjacencyList[pageName] = {};
       adjacencyList[pageName].adjacencyList = [];
       adjacencyList[pageName].adjacencyList.push(links);
-      console.log(convertedObject);
-      // if(convertedObject.continue.plcontinue !=='||'){
-      //   continueApi(pageName,convertedObject.continue.plcontinue)
-      // }
+      if(convertedObject.continue.plcontinue){
+        var continueString = pageProcessor.continueFormatter(convertedObject.continue.plcontinue);
+        continueApi(pageName,continueString);
+      }
     };
   });
 }
@@ -33,11 +34,13 @@ function continueApi(pageName, continueValue){
       var pagesNumber = Object.keys(convertedObject.query.pages)[0];
       var links = convertedObject.query.pages[pagesNumber].links
       adjacencyList[pageName].adjacencyList.push(links);
-      if(convertedObject.continue.plcontinue !=='||'){
-        continueApi(pageName,convertedObject.continue.plcontinue)
-      } else {
-        console.log("Here is adjacencyList: ", adjacencyList);
-      }
+      console.log("Here is adjacencyList: ", adjacencyList[pageName].adjacencyList);
+      // if(convertedObject.continue.plcontinue){
+      //   var continueString = pageProcessor.continueFormatter(convertedObject.continue.plcontinue);
+      //   continueApi(pageName,continueString);
+      // } else {
+      //   console.log("Here is adjacencyList: ", adjacencyList);
+      // }
     };
   });
 }

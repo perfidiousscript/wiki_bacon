@@ -1,6 +1,6 @@
 var chai = require("chai");
 var assert = chai.assert;
-var pageProcessor = require("../string_processer.js");
+var pageProcessor = require("../string_processor.js");
 
 describe("Input Processor", function(){
   it("should work with a single word", function(){
@@ -15,7 +15,7 @@ describe("Input Processor", function(){
 
 describe("continue formatter", function(){
   it("should turn all pipes into the encoded characters", function(){
-    assert.equal(pageProcessor.continueFormatter('|'),'%7C');
-    assert.equal(pageProcessor.continueFormatter('736|0|Action-angle_variables'),'736%7C0%7CAction-angle_variables');
+    assert.equal(pageProcessor.continueFormatter('|'),'&plcontinue=%7C');
+    assert.equal(pageProcessor.continueFormatter('736|0|Action-angle_variables'),'&plcontinue=736%7C0%7CAction-angle_variables');
   })
 });

@@ -10,5 +10,5 @@ module.inputCleanse = function(pageName){
 };
 
 module.continueFormatter = function(dirtyString){
-  return dirtyString.replace(/\|/g,'%7C');
+  return '&plcontinue=' + dirtyString.replace(/\|/g,'%7C');
 };
