@@ -24,10 +24,12 @@ initialApi = function(pageName){
   request(basicUrl + queryAndFormat + returnedVals + pageName,
     function (error, response, body) {
     if (!error && response.statusCode == 200) {
+      var convertedObject = JSON.parse(body)
+      var pagesNumber = Object.keys(convertedObject.query.pages)[0];
       adjacencyList[pageName] = {};
       adjacencyList[pageName].adjacencyList = [];
-      adjacencyList[pageName].adjacencyList.push(body)
-      console.log("Here is adjacency list: ",adjacencyList);
+      //adjacencyList[pageName].adjacencyList.push(body.query.pages)
+      console.log("Here is links: ",convertedObject.query.pages[pagesNumber]);
     };
   });
 }
