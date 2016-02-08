@@ -8,7 +8,7 @@ describe("Page Processor", function(){
     assert.equal(pageProcessor('Kevin'),'Kevin');
   })
   it("should work with two words", function(){
-    assert.equal(pageProcessor('kevin bacon'),'Kevin%20Bacon');
-    assert.equal(pageProcessor('Kevin Bacon'),'Kevin%20Bacon')
+    assert.equal(pageProcessor('kevin bacon'),'Kevin Bacon');
+    assert.equal(pageProcessor('Kevin Bacon'),'Kevin Bacon')
   })
 });

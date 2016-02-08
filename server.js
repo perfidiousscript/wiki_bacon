@@ -24,10 +24,10 @@ initialApi = function(pageName){
   request(basicUrl + queryAndFormat + returnedVals + pageName,
     function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      adjacencyList.processedPageName = {};
-      adjacencyList.processedPageName.adjacencyList = [];
-      adjacencyList.processedPageName.adjacencyList.push(body)
-      console.log(adjacencyList);
+      adjacencyList[pageName] = {};
+      adjacencyList[pageName].adjacencyList = [];
+      adjacencyList[pageName].adjacencyList.push(body)
+      console.log("Here is adjacency list: ",adjacencyList);
     };
   });
 }
