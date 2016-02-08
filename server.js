@@ -7,6 +7,7 @@ var request = require('request');
 var app = express();
 var pageNameProcessor = require('./page_processer.js')
 var adjacencyList = require('./adjacency_list.js');
+var continueHandler = require('./continue_handler.js');
 
 //Takes in the second parameter as the name of the page to search for.
 var rawPageName = process.argv[2]
@@ -15,13 +16,20 @@ var rawPageName = process.argv[2]
 //i.e. kevin bacon => Kevin%20Bacon.
 var processedPageName = pageNameProcessor(rawPageName);
 
-var url = 'http://en.wikipedia.org/w/api.php?' +
-'action=query&prop=links&format=json&iwurl=&titles=' +
-processedPageName;
+var basicUrl = 'http://en.wikipedia.org/w/api.php?';
+var queryAndFormat = 'action=query&prop=links&format=json';
+var returnedVals = '&iwurl=&titles=';
 
-console.log("here is processedPageName", processedPageName);
-request(url, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    //console.log(body)
-  };
-});
+initialApi = function(pageName){
+  request(basicUrl + queryAndFormat + returnedVals + pageName,
+    function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      adjacencyList.processedPageName = {};
+      adjacencyList.processedPageName.adjacencyList = [];
+      adjacencyList.processedPageName.adjacencyList.push(body)
+      console.log(adjacencyList);
+    };
+  });
+}
+
+initialApi(processedPageName);
