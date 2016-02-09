@@ -17,6 +17,7 @@ var continueApi = function (pageName, continueValue,lastDistance){
   continueString = "";
   request(basicUrl + queryAndFormat + continueValue + returnedVals + pageName,
     function (error, response, body) {
+      console.log('continue is hit');
     if (!error && response.statusCode == 200) {
       var parsedObject = JSON.parse(body)
       var pagesNumber = Object.keys(parsedObject.query.pages)[0];
@@ -33,6 +34,8 @@ var continueApi = function (pageName, continueValue,lastDistance){
       };
       if(parsedObject.continue){
         continueString = pageProcessor.continueFormatter(parsedObject.continue.plcontinue);
+        console.log('there is a continue string and it is: ', continueString)
+        return continueString;
       } else {
         console.log(list[pageName].adjacencyList);
       }
@@ -41,4 +44,4 @@ var continueApi = function (pageName, continueValue,lastDistance){
 }
 
 exports.call = continueApi;
-exports.continueString = continueString
+module.exports.continueString = continueString

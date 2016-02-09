@@ -7,6 +7,7 @@ module.exports = function(pageName, distance){
     console.log('Your page has a bacon number of', distance);
     return ('Your page has a Bacon number of', distance)
   } else {
+    console.log('bacon check is hit');
     apiCall.initialApi(pageName,0);
   }
 }

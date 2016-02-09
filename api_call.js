@@ -16,6 +16,7 @@ var isMeta = /\:/;
 function initialApi(pageName, lastDistance){
   request(basicUrl + queryAndFormat + returnedVals + pageName,
     function (error, response, body) {
+      console.log('initial is hit');
       if (!error && response.statusCode == 200) {
       var parsedObject = JSON.parse(body)
       var pagesNumber = Object.keys(parsedObject.query.pages)[0];
@@ -30,13 +31,24 @@ function initialApi(pageName, lastDistance){
     };
     if(parsedObject.continue.plcontinue){
       var continueString = pageProcessor.continueFormatter(parsedObject.continue.plcontinue);
-      continueApi.call(pageName,continueString,lastDistance);
-      while(continueApi.continueString){
-        continueApi.call(pageName,continueString,lastDistance);
+      function continueCheck(){
+        new Promise (
+          function (resolve,reject){
+            resolve(continueApi.call(pageName,continueString,lastDistance));
+          }).then(
+            function(val){
+              console.log("promise is resolved");
+              if(continueApi.continueString){
+                continueString = val;
+                continueCheck();
+              }
+            })
+          }
+          continueCheck();
+        }
       }
-    }
+    })
   }
-})
-}
+
 
 exports.initialApi = initialApi;
