@@ -11,6 +11,7 @@ var queryAndFormat = 'action=query&prop=links&format=json';
 var returnedVals = '&iwurl=&titles=';
 var list = adjacencyList.list;
 var queue = adjacencyList.queue;
+var isMeta = /\:/;
 
 exports.initialApi = function(pageName){
   request(basicUrl + queryAndFormat + returnedVals + pageName,
@@ -22,8 +23,10 @@ exports.initialApi = function(pageName){
       list[pageName] = {};
       list[pageName].adjacencyList = [];
       for(var i = 0; i < links.length; i++){
-        list[pageName].adjacencyList.push(links[i].title);
-        queue.push(links[i].title);
+        if(!(links[i].title.match(isMeta))){
+          list[pageName].adjacencyList.push(links[i].title);
+          queue.push(links[i].title);
+        }
       };
       if(parsedObject.continue.plcontinue){
         var continueString = pageProcessor.continueFormatter(parsedObject.continue.plcontinue);
