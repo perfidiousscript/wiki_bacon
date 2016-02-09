@@ -23,4 +23,4 @@ var processedPageName = pageNameProcessor.inputCleanse(rawPageName);
 
 queue.push(processedPageName);
 
-apiCall.initialApi(queue.shift());
+baconChecker(queue.shift(),0)

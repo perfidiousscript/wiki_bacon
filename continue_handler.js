@@ -1,6 +1,8 @@
 var request = require('request');
 var adjacencyList = require('./adjacency_list.js');
 var pageProcessor = require('./string_processor.js');
+var baconChecker = require('./bacon_checker');
+
 var basicUrl = 'http://en.wikipedia.org/w/api.php?';
 var queryAndFormat = 'action=query&prop=links&format=json&pllimit=500';
 var returnedVals = '&iwurl=&titles=';
@@ -9,8 +11,10 @@ var list = adjacencyList.list;
 var queue = adjacencyList.queue;
 
 var isMeta = /\:/;
+var continueString = "";
 
-module.exports = function continueApi(pageName, continueValue){
+var continueApi = function (pageName, continueValue,lastDistance){
+  continueString = "";
   request(basicUrl + queryAndFormat + continueValue + returnedVals + pageName,
     function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -20,15 +24,21 @@ module.exports = function continueApi(pageName, continueValue){
       for(var i = 0; i < links.length; i++){
         if(!(links[i].title.match(isMeta))){
           list[pageName].adjacencyList.push(links[i].title);
-          queue.push(links[i].title);
+          queue.push(
+            {
+            name: links[i].title,
+            distance: lastDistance+=1
+          });
         }
       };
       if(parsedObject.continue){
-        var continueString = pageProcessor.continueFormatter(parsedObject.continue.plcontinue);
-        continueApi(pageName,continueString);
+        continueString = pageProcessor.continueFormatter(parsedObject.continue.plcontinue);
       } else {
-        console.log("Here is adjacencyList: ", list[pageName].adjacencyList);
+        console.log(list[pageName].adjacencyList);
       }
     };
   });
 }
+
+exports.call = continueApi;
+exports.continueString = continueString

@@ -20,9 +20,9 @@ describe("continue formatter", function(){
     assert.equal(pageProcessor.continueFormatter('736|0|Action-angle_variables'),'&plcontinue=736%7C0%7CAction-angle_variables');
   })
 
-  describe("becon checker"),function(){
+  describe("bacon checker"),function(){
     it("should be able to distinguish Kevin Bacon", function(){
-      assert.equal(baconChecker('Kevin Bacon',console.log('Kevin Bacon found!')))
+      assert.equal(baconChecker('Kevin Bacon'),'Your page has a Bacon number of 0')
     })
   }
 });

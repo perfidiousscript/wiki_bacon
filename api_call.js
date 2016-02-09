@@ -13,10 +13,10 @@ var list = adjacencyList.list;
 var queue = adjacencyList.queue;
 var isMeta = /\:/;
 
-exports.initialApi = function(pageName){
+function initialApi(pageName, lastDistance){
   request(basicUrl + queryAndFormat + returnedVals + pageName,
     function (error, response, body) {
-    if (!error && response.statusCode == 200) {
+      if (!error && response.statusCode == 200) {
       var parsedObject = JSON.parse(body)
       var pagesNumber = Object.keys(parsedObject.query.pages)[0];
       var links = parsedObject.query.pages[pagesNumber].links;
@@ -25,13 +25,18 @@ exports.initialApi = function(pageName){
       for(var i = 0; i < links.length; i++){
         if(!(links[i].title.match(isMeta))){
           list[pageName].adjacencyList.push(links[i].title);
-          queue.push(links[i].title);
-        }
+          queue.push({name: links[i].title,distance: lastDistance+=1});
       };
-      if(parsedObject.continue.plcontinue){
-        var continueString = pageProcessor.continueFormatter(parsedObject.continue.plcontinue);
-        continueApi(pageName,continueString);
-      }
     };
-  });
+    if(parsedObject.continue.plcontinue){
+      var continueString = pageProcessor.continueFormatter(parsedObject.continue.plcontinue);
+      continueApi.call(pageName,continueString,lastDistance);
+      while(continueApi.continueString){
+        continueApi.call(pageName,continueString,lastDistance);
+      }
+    }
+  }
+})
 }
+
+exports.initialApi = initialApi;
