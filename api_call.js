@@ -2,7 +2,6 @@
 var request = require('request');
 var adjacencyList = require('./adjacency_list.js');
 var pageProcessor = require('./string_processor.js');
-var continueApi = require('./continue_handler.js');
 var centralModule = require('./server.js');
 var exports = module.exports = {};
 

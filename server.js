@@ -7,7 +7,6 @@ var fs = require('fs');
 var request = require('request');
 var app = express();
 var pageNameProcessor = require('./string_processor.js')
-var continueHandler = require('./continue_handler.js');
 var apiCall = require('./api_call.js');
 var baconChecker = require('./bacon_checker.js');
 var adjacencyList = require('./adjacency_list.js');
