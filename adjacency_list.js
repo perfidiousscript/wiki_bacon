@@ -1,1 +1,3 @@
-module.exports = {};
+exports = module.exports = {};
+exports.list = {};
+exports.queue = [];

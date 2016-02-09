@@ -1,6 +1,7 @@
 var chai = require("chai");
 var assert = chai.assert;
 var pageProcessor = require("../string_processor.js");
+var baconChecker = require("../bacon_checker.js");
 
 describe("Input Processor", function(){
   it("should work with a single word", function(){
@@ -18,4 +19,10 @@ describe("continue formatter", function(){
     assert.equal(pageProcessor.continueFormatter('|'),'&plcontinue=%7C');
     assert.equal(pageProcessor.continueFormatter('736|0|Action-angle_variables'),'&plcontinue=736%7C0%7CAction-angle_variables');
   })
+
+  describe("becon checker"),function(){
+    it("should be able to distinguish Kevin Bacon", function(){
+      assert.equal(baconChecker('Kevin Bacon',console.log('Kevin Bacon found!')))
+    })
+  }
 });

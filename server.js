@@ -9,6 +9,10 @@ var app = express();
 var pageNameProcessor = require('./string_processor.js')
 var continueHandler = require('./continue_handler.js');
 var apiCall = require('./api_call.js');
+var baconChecker = require('./bacon_checker.js');
+var adjacencyList = require('./adjacency_list.js');
+
+var queue = adjacencyList.queue;
 
 //Takes in the second parameter as the name of the page to search for.
 var rawPageName = process.argv[2];
@@ -17,4 +21,6 @@ var rawPageName = process.argv[2];
 //i.e. kevin bacon => Kevin%20Bacon.
 var processedPageName = pageNameProcessor.inputCleanse(rawPageName);
 
-apiCall.initialApi(processedPageName);
+queue.push(processedPageName);
+
+apiCall.initialApi(queue.shift());
