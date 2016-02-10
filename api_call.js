@@ -25,6 +25,10 @@ var initialApi = function(pageName, lastDistance){
       console.log("parsedObject query: ", parsedObject.query);
       if(links){
         for(var i = 0; i < links.length; i++){
+          if(links[i].title=="Kevin Bacon"){
+            console.log('Your page has a Bacon number of', currentDistance);
+            return;
+          }
         if(!(links[i].title.match(isMeta))){
           list[pageName].adjacencyList.push(links[i].title);
           queue.push({
@@ -58,6 +62,10 @@ var continueApi = function (pageName, continueValue,lastDistance){
         var links = parsedObject.query.pages[pagesNumber].links
         if(links){
           for(var i = 0; i < links.length; i++){
+            if(links[i].title=="Kevin Bacon"){
+              console.log('Your page has a Bacon number of', currentDistance);
+              return;
+            };
             if(!(links[i].title.match(isMeta))){
               list[pageName].adjacencyList.push(links[i].title);
               queue.push(
